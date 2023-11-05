@@ -3,7 +3,8 @@ import 'package:varta_app/components/my_text_field.dart';
 import '../components/my_button.dart';
 
 class RegisterPage extends StatefulWidget {
-  const RegisterPage({super.key});
+  final void Function()? onTap;
+  const RegisterPage({super.key, required this.onTap});
 
   @override
   State<RegisterPage> createState() => _RegisterPageState();
@@ -12,6 +13,9 @@ class RegisterPage extends StatefulWidget {
 class _RegisterPageState extends State<RegisterPage> {
   final emailController = TextEditingController();
   final passwordController = TextEditingController();
+  final confirmPasswordController = TextEditingController();
+  //sign up user
+  void signUp() {}
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -48,20 +52,29 @@ class _RegisterPageState extends State<RegisterPage> {
                   controller: passwordController,
                   hintText: "Password here ...",
                   obscureText: true),
+              const SizedBox(height: 20),
+              //confirm password
+              MyTextField(
+                  controller: confirmPasswordController,
+                  hintText: "Confirm Password",
+                  obscureText: true),
               const SizedBox(height: 50),
-              //sign in button
-              MyButton(text: "Sign In", onTap: () {}),
+              //sign up button
+              MyButton(text: "Sign Up", onTap: signUp),
               const SizedBox(height: 50),
-              //not a member ? register now
-              const Row(
+              //Already a member ? Login now
+              Row(
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: [
-                  Text("Not a Member ?"),
-                  SizedBox(width: 5),
-                  Text(
-                    "Register now.",
-                    style: TextStyle(
-                      fontWeight: FontWeight.bold,
+                  const Text("Already a member ?"),
+                  const SizedBox(width: 5),
+                  GestureDetector(
+                    onTap: widget.onTap,
+                    child: const Text(
+                      "Login now.",
+                      style: TextStyle(
+                        fontWeight: FontWeight.bold,
+                      ),
                     ),
                   )
                 ],

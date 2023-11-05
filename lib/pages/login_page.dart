@@ -3,7 +3,8 @@ import 'package:varta_app/components/my_button.dart';
 import 'package:varta_app/components/my_text_field.dart';
 
 class LoginPage extends StatefulWidget {
-  const LoginPage({super.key});
+  final void Function()? onTap;
+  const LoginPage({super.key, required this.onTap});
 
   @override
   State<LoginPage> createState() => _LoginPageState();
@@ -12,6 +13,7 @@ class LoginPage extends StatefulWidget {
 class _LoginPageState extends State<LoginPage> {
   final emailController = TextEditingController();
   final passwordController = TextEditingController();
+  void signIn() {}
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -50,18 +52,21 @@ class _LoginPageState extends State<LoginPage> {
                   obscureText: true),
               const SizedBox(height: 50),
               //sign in button
-              MyButton(text: "Sign In", onTap: () {}),
+              MyButton(text: "Sign In", onTap: signIn),
               const SizedBox(height: 50),
               //not a member ? register now
-              const Row(
+              Row(
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: [
-                  Text("Not a Member ?"),
-                  SizedBox(width: 5),
-                  Text(
-                    "Register now.",
-                    style: TextStyle(
-                      fontWeight: FontWeight.bold,
+                  const Text("Not a Member ?"),
+                  const SizedBox(width: 5),
+                  GestureDetector(
+                    onTap: widget.onTap,
+                    child: const Text(
+                      "Register now.",
+                      style: TextStyle(
+                        fontWeight: FontWeight.bold,
+                      ),
                     ),
                   )
                 ],
